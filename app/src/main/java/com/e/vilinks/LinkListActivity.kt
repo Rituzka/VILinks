@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_content_list_links.*
 import kotlinx.android.synthetic.main.activity_list_links.*
 
 class LinkListActivity : AppCompatActivity() {
@@ -12,6 +15,9 @@ class LinkListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_links)
+
+        list_recycler.layoutManager = LinearLayoutManager(this)
+
 
         addLink.setOnClickListener { view ->
             Snackbar.make(view, "action", Snackbar.LENGTH_LONG)
