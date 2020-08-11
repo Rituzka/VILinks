@@ -12,11 +12,14 @@ import kotlinx.android.synthetic.main.activity_list_links.*
 
 class LinkListActivity : AppCompatActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_links)
 
         list_recycler.layoutManager = LinearLayoutManager(this)
+        list_recycler.adapter = LinksAdapter()
 
 
         addLink.setOnClickListener { view ->
