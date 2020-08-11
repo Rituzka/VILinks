@@ -1,14 +1,16 @@
 package com.e.vilinks
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.link_item_view_holder.view.*
 
 class LinksAdapter(): RecyclerView.Adapter<LinksAdapter.LinkViewHolder>() {
 
-    private val listLinks = listOf("link1", "link2", "link3", "link4", "link5")
+    private var listLinks = mutableListOf("link1", "link2", "link3", "link4", "link5")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinkViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,6 +25,14 @@ class LinksAdapter(): RecyclerView.Adapter<LinksAdapter.LinkViewHolder>() {
         holder.linkName.text = listLinks[position]
     }
 
+    fun addLink(newItem: String) {
+        if(newItem.isEmpty()) {
+        listLinks.add("Link "+ (listLinks.size + 1))
+        }else {
+            listLinks.add(newItem)
+        }
+        notifyDataSetChanged()
+    }
 
     class LinkViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         var linkPosition = itemView.itemNumber

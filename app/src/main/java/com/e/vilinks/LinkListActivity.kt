@@ -2,11 +2,12 @@ package com.e.vilinks
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_content_list_links.*
 import kotlinx.android.synthetic.main.activity_list_links.*
 
@@ -22,9 +23,8 @@ class LinkListActivity : AppCompatActivity() {
         list_recycler.adapter = LinksAdapter()
 
 
-        addLink.setOnClickListener { view ->
-            Snackbar.make(view, "action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        addLink.setOnClickListener {
+            showCreateTitleLinkDialog()
         }
     }
 
@@ -38,5 +38,25 @@ class LinkListActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showCreateTitleLinkDialog() {
+        val dialogTitle = getString(R.string.titleLink)
+        val positiveButtonTitle = getString(R.string.positiveButtonName)
+        val myDialog = AlertDialog.Builder(this)
+        val titleEditText = EditText(this)
+        titleEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+
+        myDialog.setTitle(dialogTitle)
+        myDialog.setView(titleEditText)
+        myDialog.setPositiveButton(positiveButtonTitle) {
+            dialog, _ ->
+            val adapter = list_recycler.adapter as LinksAdapter
+            adapter.addLink(titleEditText.text.toString())
+            dialog.dismiss()
+        }
+
+        myDialog.create().show()
+
     }
 }
