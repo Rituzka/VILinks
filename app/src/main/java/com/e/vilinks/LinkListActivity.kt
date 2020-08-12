@@ -13,14 +13,16 @@ import kotlinx.android.synthetic.main.activity_list_links.*
 
 class LinkListActivity : AppCompatActivity() {
 
-
+     val listDataManager by lazy { ListDataManager(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_links)
+        setSupportActionBar(toolbar)
 
+        val lists = listDataManager.readList()
         list_recycler.layoutManager = LinearLayoutManager(this)
-        list_recycler.adapter = LinksAdapter()
+        list_recycler.adapter = LinksAdapter(lists)
 
 
         addLink.setOnClickListener {
@@ -52,7 +54,9 @@ class LinkListActivity : AppCompatActivity() {
         myDialog.setPositiveButton(positiveButtonTitle) {
             dialog, _ ->
             val adapter = list_recycler.adapter as LinksAdapter
-            adapter.addLink(titleEditText.text.toString())
+            val list = LinkList(titleEditText.text.toString())
+            listDataManager.saveList(list)
+            adapter.addList(list)
             dialog.dismiss()
         }
 
