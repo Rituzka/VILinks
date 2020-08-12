@@ -1,5 +1,6 @@
-package com.e.vilinks
+package com.e.vilinks.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -8,10 +9,14 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.e.vilinks.model.LinksTopics
+import com.e.vilinks.database.ListDataManager
+import com.e.vilinks.R
+import com.e.vilinks.utils.INTENT_LIST_KEY
 import kotlinx.android.synthetic.main.activity_content_list_links.*
 import kotlinx.android.synthetic.main.activity_list_links.*
 
-class LinkListActivity : AppCompatActivity() {
+class LinksTopicsActivity : AppCompatActivity(), LinksTopicsAdapter.linksTopicListener {
 
      val listDataManager by lazy { ListDataManager(this) }
 
@@ -22,7 +27,7 @@ class LinkListActivity : AppCompatActivity() {
 
         val lists = listDataManager.readList()
         list_recycler.layoutManager = LinearLayoutManager(this)
-        list_recycler.adapter = LinksAdapter(lists)
+        list_recycler.adapter = LinksTopicsAdapter(lists, this )
 
 
         addLink.setOnClickListener {
@@ -53,14 +58,26 @@ class LinkListActivity : AppCompatActivity() {
         myDialog.setView(titleEditText)
         myDialog.setPositiveButton(positiveButtonTitle) {
             dialog, _ ->
-            val adapter = list_recycler.adapter as LinksAdapter
-            val list = LinkList(titleEditText.text.toString())
+            val adapter = list_recycler.adapter as LinksTopicsAdapter
+            val list =
+                LinksTopics(titleEditText.text.toString())
             listDataManager.saveList(list)
             adapter.addList(list)
             dialog.dismiss()
+            showListLinks(list)
         }
 
         myDialog.create().show()
 
+    }
+
+    private fun showListLinks(topicTitleList: LinksTopics) {
+        val titleItem = Intent(this, LinksListDetailActivity::class.java)
+        titleItem.putExtra(INTENT_LIST_KEY, topicTitleList)
+         startActivity(titleItem)
+    }
+
+    override fun onTitleTopicClick(list: LinksTopics) {
+        showListLinks(list)
     }
 }
