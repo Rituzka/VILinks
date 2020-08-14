@@ -14,6 +14,7 @@ import com.e.vilinks.model.LinksTopics
 import com.e.vilinks.database.ListDataManager
 import com.e.vilinks.R
 import com.e.vilinks.ui.listLinks.LinksListDetailActivity
+import com.e.vilinks.utils.INTENT_DETAIL_REQUEST_CODE
 import com.e.vilinks.utils.INTENT_LIST_KEY
 import kotlinx.android.synthetic.main.activity_content_list_topics.*
 import kotlinx.android.synthetic.main.activity_list_topics.*
@@ -37,6 +38,22 @@ class TitleTopicsActivity : AppCompatActivity(),
         addTopic.setOnClickListener {
             showCreateTopicDialog()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == INTENT_DETAIL_REQUEST_CODE) {
+            data?.let {
+                val list = data.getParcelableExtra<LinksTopics>(INTENT_LIST_KEY)!!
+                listDataManager.saveList(list)
+                updateList()
+            }
+        }
+    }
+
+    private fun updateList() {
+      val lists = listDataManager.readList()
+        list_topics.adapter = TitleTopicsAdapter(lists, this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -78,7 +95,7 @@ class TitleTopicsActivity : AppCompatActivity(),
     private fun showListLinks(topicTitleList: LinksTopics) {
         val titleItem = Intent(this, LinksListDetailActivity::class.java)
         titleItem.putExtra(INTENT_LIST_KEY, topicTitleList)
-         startActivity(titleItem)
+         startActivityForResult(titleItem, INTENT_DETAIL_REQUEST_CODE)
     }
 
     override fun onTitleTopicClick(list: LinksTopics) {

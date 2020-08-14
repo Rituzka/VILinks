@@ -1,6 +1,8 @@
 package com.e.vilinks.ui.listLinks
 
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.vilinks.R
 import com.e.vilinks.model.LinksTopics
+import com.e.vilinks.ui.listTopics.TitleTopicsActivity
 import com.e.vilinks.ui.listTopics.TitleTopicsAdapter
 import com.e.vilinks.utils.INTENT_LIST_KEY
 import kotlinx.android.synthetic.main.activity_content_list_topics.*
@@ -31,9 +34,18 @@ class LinksListDetailActivity : AppCompatActivity() {
         btn_link.setOnClickListener {
             showCreateLinkDialog()
         }
-
-
     }
+
+    override fun onBackPressed() {
+        val bundle = Bundle()
+        bundle.putParcelable(INTENT_LIST_KEY, list)
+
+        val intent = Intent()
+        intent.putExtras(bundle)
+        setResult(Activity.RESULT_OK, intent)
+        super.onBackPressed()
+    }
+
     private fun showCreateLinkDialog() {
 
         val positiveButtonTitle = getString(R.string.positiveButtonName)
