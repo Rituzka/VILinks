@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">VILinks</string>
+    <string name="app_name">LinKeeper</string>
     <string name="action_settings">Settings</string>
-    <string name="titleLink">Title of the link</string>
     <string name="positiveButtonName">Create</string>
+    <string name="linkHere">Link here</string>
+    <string name="link_title">Link Title</string>
+    <string name="topic_title">Topic title</string>
+    <string name="paste_url">Paste your URL</string>
 </resources>
