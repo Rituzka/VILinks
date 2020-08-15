@@ -3,16 +3,15 @@ package com.e.vilinks.ui.listLinks
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.vilinks.R
 import com.e.vilinks.model.Topics
-import com.e.vilinks.ui.listTopics.TitleTopicsActivity
-import com.e.vilinks.utils.INTENT_DETAIL_REQUEST_CODE
 import com.e.vilinks.utils.INTENT_LIST_KEY
 import kotlinx.android.synthetic.main.activity_links_list_detail.*
 
@@ -66,11 +65,12 @@ class LinksListDetailActivity : AppCompatActivity(), LinksListAdapter.ItemLinkCl
     }
 
     override fun onLinkClicked(link:String) {
-       goToWeb()
+       goToWeb(link)
     }
 
-    private fun goToWeb() {
-            val itemLink = Intent(this, TitleTopicsActivity::class.java)
-            startActivity(itemLink)
+    private fun goToWeb(link:String) {
+        val uri: Uri = Uri.parse(link)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
     }
 }
