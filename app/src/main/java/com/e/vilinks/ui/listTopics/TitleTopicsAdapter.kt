@@ -36,6 +36,11 @@ class TitleTopicsAdapter(private val titleListTopics: ArrayList<Topics>, val cli
         notifyItemInserted(titleListTopics.size - 1)
     }
 
+    fun removeItem(item: Topics){
+       titleListTopics.remove(item)
+        notifyDataSetChanged()
+}
+
     class LinkViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         var topicPosition = itemView.itemNumber
         var topicName = itemView.itemTopic

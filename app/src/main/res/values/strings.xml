@@ -7,4 +7,8 @@
     <string name="topic_title">Topic title</string>
     <string name="paste_url">paste your URL</string>
     <string name="positiveButtonName2">OK</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_help">Help</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_clearall">Clear all</string>
 </resources>

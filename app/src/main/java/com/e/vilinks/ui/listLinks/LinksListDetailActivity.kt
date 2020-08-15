@@ -6,6 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +35,20 @@ class LinksListDetailActivity : AppCompatActivity(), LinksListAdapter.ItemLinkCl
 
         btn_link.setOnClickListener {
             showCreateLinkDialog()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.link_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_delete -> true
+            R.id.action_clearall -> true
+            R.id.action_log_out -> true
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

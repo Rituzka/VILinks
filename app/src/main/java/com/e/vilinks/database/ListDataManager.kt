@@ -27,4 +27,10 @@ class ListDataManager(private val context: Context) {
 
         return linkLists
     }
+
+    fun deleteItem(topicTitleList: Topics) {
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit()
+        sharedPrefs.remove(topicTitleList.name)
+        sharedPrefs.apply()
+    }
 }
