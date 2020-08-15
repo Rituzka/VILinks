@@ -8,20 +8,12 @@
 
 
     <TextView
-        android:id="@+id/link_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/link_title"
-        android:padding="4dp"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/txt_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:hint="@string/linkHere"
         android:selectAllOnFocus="true"
-        android:hint="@string/linkHere" />
+        android:textSize="16sp" />
 
 </LinearLayout>

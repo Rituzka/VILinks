@@ -5,11 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.e.vilinks.R
-import com.e.vilinks.model.LinksTopics
+import com.e.vilinks.model.Link
+import com.e.vilinks.model.Topics
 import kotlinx.android.synthetic.main.item_link_viewholder.view.*
 
 
-class LinksListAdapter(private var list: LinksTopics): RecyclerView.Adapter<LinksListAdapter.LinksListViewHolder>() {
+class LinksListAdapter(private val linkList: ArrayList<String>, val click: ItemLinkClickListener): RecyclerView.Adapter<LinksListAdapter.LinksListViewHolder>() {
+
+   interface ItemLinkClickListener{
+       fun onLinkClicked(link: String)
+   }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinksListViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -18,11 +23,13 @@ class LinksListAdapter(private var list: LinksTopics): RecyclerView.Adapter<Link
 
     }
 
-    override fun getItemCount() = list.links.size
+    override fun getItemCount() = linkList.size
 
     override fun onBindViewHolder(holder: LinksListViewHolder, position: Int) {
-        holder.linkURL?.text = list.links[position]
-
+        holder.linkURL?.text = linkList[position]
+        holder.itemView.setOnClickListener {
+            click.onLinkClicked(linkList[position])
+        }
     }
 
     class LinksListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

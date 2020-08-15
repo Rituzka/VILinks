@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.e.vilinks.model.LinksTopics
+import com.e.vilinks.model.Topics
 import com.e.vilinks.R
 import kotlinx.android.synthetic.main.item_topic_viewholder.view.*
 
 
-class TitleTopicsAdapter(private val titleListTopics: ArrayList<LinksTopics>, val clickListener: linksTopicListener) : RecyclerView.Adapter<TitleTopicsAdapter.LinkViewHolder>() {
+class TitleTopicsAdapter(private val titleListTopics: ArrayList<Topics>, val clickListener: linksTopicListener) : RecyclerView.Adapter<TitleTopicsAdapter.LinkViewHolder>() {
 
     interface linksTopicListener {
-        fun onTitleTopicClick(list: LinksTopics)
+        fun onTitleTopicClick(list: Topics)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinkViewHolder {
@@ -31,7 +31,7 @@ class TitleTopicsAdapter(private val titleListTopics: ArrayList<LinksTopics>, va
         }
     }
 
-    fun addList(item: LinksTopics){
+    fun addList(item: Topics){
         titleListTopics.add(item)
         notifyItemInserted(titleListTopics.size - 1)
     }

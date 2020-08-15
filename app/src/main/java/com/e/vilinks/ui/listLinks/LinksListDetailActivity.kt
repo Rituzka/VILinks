@@ -10,26 +10,27 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.vilinks.R
-import com.e.vilinks.model.LinksTopics
+import com.e.vilinks.model.Topics
 import com.e.vilinks.ui.listTopics.TitleTopicsActivity
-import com.e.vilinks.ui.listTopics.TitleTopicsAdapter
+import com.e.vilinks.utils.INTENT_DETAIL_REQUEST_CODE
 import com.e.vilinks.utils.INTENT_LIST_KEY
-import kotlinx.android.synthetic.main.activity_content_list_topics.*
 import kotlinx.android.synthetic.main.activity_links_list_detail.*
 
-lateinit var list: LinksTopics
 
-class LinksListDetailActivity : AppCompatActivity() {
+class LinksListDetailActivity : AppCompatActivity(), LinksListAdapter.ItemLinkClickListener {
+
+    private lateinit var list: Topics
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_links_list_detail)
-
-        list = intent.getParcelableExtra(INTENT_LIST_KEY) as LinksTopics
+    
+        list = intent.getParcelableExtra(INTENT_LIST_KEY) as Topics
         title = list.name
-
+        
         //configure recyclerView
         list_links.layoutManager = LinearLayoutManager(this)
-        list_links.adapter = LinksListAdapter(list)
+        list_links.adapter = LinksListAdapter(list.links, this)
 
         btn_link.setOnClickListener {
             showCreateLinkDialog()
@@ -47,28 +48,29 @@ class LinksListDetailActivity : AppCompatActivity() {
     }
 
     private fun showCreateLinkDialog() {
-
-        val positiveButtonTitle = getString(R.string.positiveButtonName)
-
-        val dialogTitle2 = getString(R.string.paste_url)
         val url = EditText(this)
-        url.inputType = InputType.TYPE_TEXT_VARIATION_URI
+        url.inputType = InputType.TYPE_CLASS_TEXT
 
         AlertDialog.Builder(this)
-        .setTitle(dialogTitle2)
-        .setView(url)
-        .setPositiveButton(positiveButtonTitle) {
+            .setTitle(R.string.paste_url)
+            .setView(url)
+            .setPositiveButton(R.string.positiveButtonName2) {
                 dialog, _ ->
-            //val adapter = list_links.adapter as LinksListAdapter
             val link = url.text.toString()
             list.links.add(link)
-            //listDataManager.saveList(list)
-           // adapter.addList(list)
             dialog.dismiss()
-            //showListLinks(list)
         }
 
             .create()
             .show()
+    }
+
+    override fun onLinkClicked(link:String) {
+       goToWeb()
+    }
+
+    private fun goToWeb() {
+            val itemLink = Intent(this, TitleTopicsActivity::class.java)
+            startActivity(itemLink)
     }
 }
