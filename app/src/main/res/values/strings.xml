@@ -11,4 +11,16 @@
     <string name="action_help">Help</string>
     <string name="action_delete">Delete</string>
     <string name="action_clearall">Clear all</string>
+    <string name="username">Username</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="logo">logo</string>
+    <string name="logout">Logout</string>
+    <string name="passwordShort">Password too short</string>
+    <string name="passwordempty">Password cannot be empty!</string>
+    <string name="usernameshort">Username too short!</string>
+    <string name="usernameempty">Username cannot be empty</string>
+    <string name="inputerror">Fields too short or empty, try again!</string>
+    <string name="saveData">save_data</string>
+    <string name="userlogged">user_logged</string>
 </resources>
