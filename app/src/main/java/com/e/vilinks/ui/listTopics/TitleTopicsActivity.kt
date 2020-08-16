@@ -76,7 +76,7 @@ class TitleTopicsActivity : AppCompatActivity(),
         }
     }
 
-    private fun goToLogin() {
+  fun goToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
 

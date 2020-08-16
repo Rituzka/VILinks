@@ -2,6 +2,7 @@ package com.e.vilinks.ui.listLinks
 
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.vilinks.R
 import com.e.vilinks.model.Topics
+import com.e.vilinks.ui.listTopics.TitleTopicsActivity
+import com.e.vilinks.ui.login.LoginActivity
 import com.e.vilinks.utils.INTENT_LIST_KEY
 import kotlinx.android.synthetic.main.activity_links_list_detail.*
 
@@ -47,7 +50,12 @@ class LinksListDetailActivity : AppCompatActivity(), LinksListAdapter.ItemLinkCl
         return when (item.itemId) {
             R.id.action_delete -> true
             R.id.action_clearall -> true
-            R.id.action_log_out -> true
+            R.id.action_log_out -> {
+                val sharedPref = getSharedPreferences(getString(R.string.saveData), Context.MODE_PRIVATE)
+                sharedPref.edit().putBoolean(getString(R.string.userlogged),false).apply()
+                goToLogin()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -87,6 +95,11 @@ class LinksListDetailActivity : AppCompatActivity(), LinksListAdapter.ItemLinkCl
     private fun goToWeb(link:String) {
         val uri: Uri = Uri.parse(link)
         val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
+    }
+
+    private fun goToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 }
