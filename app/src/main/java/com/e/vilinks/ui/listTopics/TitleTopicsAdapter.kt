@@ -24,7 +24,6 @@ class TitleTopicsAdapter(private val titleListTopics: ArrayList<Topics>, val cli
     override fun getItemCount() = titleListTopics.size
 
     override fun onBindViewHolder(holder: LinkViewHolder, position: Int) {
-        holder.topicPosition.text = (position + 1).toString()
         holder.topicName.text = titleListTopics[position].name
         holder.itemView.setOnClickListener {
             clickListener.onTitleTopicClick(titleListTopics[position])
@@ -42,7 +41,6 @@ class TitleTopicsAdapter(private val titleListTopics: ArrayList<Topics>, val cli
 }
 
     class LinkViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        var topicPosition = itemView.itemNumber
         var topicName = itemView.itemTopic
 
     }

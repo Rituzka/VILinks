@@ -1,5 +1,6 @@
 package com.e.vilinks.ui.listTopics
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.e.vilinks.model.Topics
 import com.e.vilinks.database.ListDataManager
 import com.e.vilinks.R
 import com.e.vilinks.ui.listLinks.LinksListDetailActivity
+import com.e.vilinks.ui.login.LoginActivity
 import com.e.vilinks.utils.INTENT_DETAIL_REQUEST_CODE
 import com.e.vilinks.utils.INTENT_LIST_KEY
 import kotlinx.android.synthetic.main.activity_content_list_topics.*
@@ -64,9 +66,20 @@ class TitleTopicsActivity : AppCompatActivity(),
         return when (item.itemId) {
             R.id.action_settings -> true
             R.id.action_help -> true
-            R.id.action_logout -> true
+            R.id.action_logout -> {
+                val sharedPref = getSharedPreferences(getString(R.string.saveData), Context.MODE_PRIVATE)
+                sharedPref.edit().putBoolean(getString(R.string.userlogged),false).apply()
+                goToLogin()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun goToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+
     }
 
     private fun showCreateTopicDialog() {
