@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_content_list_topics.*
 import kotlinx.android.synthetic.main.activity_list_topics.*
 
 class TitleTopicsActivity : AppCompatActivity(),
-    TitleTopicsAdapter.linksTopicListener {
+    TitleTopicsAdapter.LinksTopicListener {
 
      val listDataManager =  ListDataManager(this)
 

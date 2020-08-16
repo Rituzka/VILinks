@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.vilinks.R
 import com.e.vilinks.model.Topics
-import com.e.vilinks.ui.listTopics.TitleTopicsActivity
 import com.e.vilinks.ui.login.LoginActivity
 import com.e.vilinks.utils.INTENT_LIST_KEY
 import kotlinx.android.synthetic.main.activity_links_list_detail.*
@@ -35,6 +34,7 @@ class LinksListDetailActivity : AppCompatActivity(), LinksListAdapter.ItemLinkCl
         //configure recyclerView
         list_links.layoutManager = LinearLayoutManager(this)
         list_links.adapter = LinksListAdapter(list.links, this)
+
 
         btn_link.setOnClickListener {
             showCreateLinkDialog()
@@ -79,11 +79,11 @@ class LinksListDetailActivity : AppCompatActivity(), LinksListAdapter.ItemLinkCl
             .setView(url)
             .setPositiveButton(R.string.positiveButtonName2) {
                 dialog, _ ->
-            val link = url.text.toString()
-            list.links.add(link)
+                val adapter = list_links.adapter as LinksListAdapter
+                val link = url.text.toString()
+                adapter.addLink(link)
             dialog.dismiss()
         }
-
             .create()
             .show()
     }

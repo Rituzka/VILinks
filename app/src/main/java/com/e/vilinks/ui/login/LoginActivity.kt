@@ -36,11 +36,11 @@ class LoginActivity : AppCompatActivity() {
     private fun showErrors() {
         if (username.text.isEmpty())
             username.error = getString(R.string.usernameempty)
-        if (username.length() < 2 && username.length() > 0)
-            username.error = getString(R.string.usernameshort)
-        if (password.text.isEmpty())
+        if (username.length() in 1..1) username.error = getString(R.string.usernameshort)
+        if (password.text.isEmpty()) {
             password.error = getString(R.string.passwordempty)
-        if (password.length() < 4 && password.length() > 0)
+        }
+        if (password.length() in 1..3)
             password.error = getString(R.string.passwordShort)
     }
     //user an password validation

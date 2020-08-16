@@ -3,15 +3,16 @@ package com.e.vilinks.ui.listTopics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.vilinks.model.Topics
 import com.e.vilinks.R
 import kotlinx.android.synthetic.main.item_topic_viewholder.view.*
 
 
-class TitleTopicsAdapter(private val titleListTopics: ArrayList<Topics>, val clickListener: linksTopicListener) : RecyclerView.Adapter<TitleTopicsAdapter.LinkViewHolder>() {
+class TitleTopicsAdapter(private val titleListTopics: ArrayList<Topics>, private val clickListener: LinksTopicListener) : RecyclerView.Adapter<TitleTopicsAdapter.LinkViewHolder>() {
 
-    interface linksTopicListener {
+    interface LinksTopicListener {
         fun onTitleTopicClick(list: Topics)
     }
 
@@ -35,13 +36,8 @@ class TitleTopicsAdapter(private val titleListTopics: ArrayList<Topics>, val cli
         notifyItemInserted(titleListTopics.size - 1)
     }
 
-    fun removeItem(item: Topics){
-       titleListTopics.remove(item)
-        notifyDataSetChanged()
-}
-
     class LinkViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        var topicName = itemView.itemTopic
+        var topicName: TextView = itemView.itemTopic
 
     }
 }

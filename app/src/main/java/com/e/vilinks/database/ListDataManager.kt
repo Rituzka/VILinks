@@ -2,7 +2,6 @@ package com.e.vilinks.database
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.e.vilinks.model.Link
 import com.e.vilinks.model.Topics
 
 
@@ -26,11 +25,5 @@ class ListDataManager(private val context: Context) {
         }
 
         return linkLists
-    }
-
-    fun deleteItem(topicTitleList: Topics) {
-        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit()
-        sharedPrefs.remove(topicTitleList.name)
-        sharedPrefs.apply()
     }
 }
